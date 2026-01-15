@@ -2,18 +2,16 @@ import 'package:firebase_01/brew_crew/firebase_auth_flutter/services/auth_servic
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key, required this.toggleAuthentication});
+class Register extends StatefulWidget {
+  Register({super.key, required this.toggleAuthentication});
   final Function toggleAuthentication;
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
-
-  // Text state
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -32,15 +30,16 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sign In to Brew Crew"),
+        title: Text("Sign Up to Brew Crew"),
         centerTitle: true,
         actions: [
           TextButton.icon(
             onPressed: () {
               widget.toggleAuthentication();
             },
+
+            label: Text("Login"),
             icon: Icon(Icons.login),
-            label: Text("Register"),
             // child: Text("Register"),
           ),
         ],
@@ -74,6 +73,7 @@ class _SignInState extends State<SignIn> {
                     SizedBox(height: 15),
                     TextFormField(
                       controller: passwordController,
+                      obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Password required ";
@@ -83,7 +83,6 @@ class _SignInState extends State<SignIn> {
                         }
                         return null;
                       },
-                      obscureText: true,
                       decoration: InputDecoration(
                         hintText: "abF\$435HKSJ@)954",
                         border: OutlineInputBorder(
@@ -105,19 +104,20 @@ class _SignInState extends State<SignIn> {
                           setState(() {
                             loading = true;
                           });
-                          final result = await _auth.sigInWithEmailAndPassword(
-                            email: emailController.text.trim(),
-                            password: passwordController.text.trim(),
-                          );
+                          final result = await _auth
+                              .registerWithEmailAndPassword(
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim(),
+                              );
                           if (result == null) {
                             setState(() {
-                              error = "Invalid Credentials";
+                              error = "Please supply a valid email";
                               loading = false;
                             });
                           }
                         }
                       },
-                      child: Text("Sign In", style: TextStyle(fontSize: 20)),
+                      child: Text("Sign Up", style: TextStyle(fontSize: 20)),
                     ),
                     SizedBox(height: 20),
                     Text(

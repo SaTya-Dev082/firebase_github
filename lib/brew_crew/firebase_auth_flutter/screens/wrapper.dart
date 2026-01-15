@@ -1,3 +1,4 @@
+import 'package:firebase_01/brew_crew/firebase_auth_flutter/screens/authentication/register.dart';
 import 'package:firebase_01/brew_crew/firebase_auth_flutter/screens/authentication/sign_in.dart';
 import 'package:firebase_01/brew_crew/firebase_auth_flutter/screens/home/home.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +15,7 @@ class Wrapper extends StatelessWidget {
     if (user != null) {
       return Home();
     } else {
-      return SignIn();
+      return Authentication();
     }
   }
 }
